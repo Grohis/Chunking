@@ -1,0 +1,26 @@
+def chunked(lst, n):
+    result = []
+    list_copy = lst[:]
+    
+    if len(list_copy) % n != 0:
+        # Если размер списка не делится на n, заполняем нулями
+        add = n - len(list_copy) % n
+        list_copy.extend([0] * add)
+
+    while len(list_copy) > 0:
+        current = []
+        for _ in range(n):
+            current.append(list_copy.pop(0))  # Удаляем элементы из начала списка и добавляем в текущий подсписок
+        result.append(current)
+    
+    # Удаляем добавленные нули, если они есть
+    if len(lst) % n != 0:
+        for _ in range(add):
+            result[-1].pop()
+
+    return result
+
+
+line = input().split()
+n = int(input())
+print(chunked(line, n))
